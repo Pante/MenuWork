@@ -15,30 +15,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.view;
+package com.karusmc.menuwork.contents;
 
-import com.karusmc.menuwork.model.Contents;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+import com.karusmc.menuwork.controller.Button;
+import java.util.*;
+import org.bukkit.inventory.ItemStack;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Menu {
+public class Contents {
     
-    private Inventory inventory;
+    private List<ItemStack> data;
+    private Map<String, Button> buttons;
     
     
-    private Menu() {}
+    private Contents() {}
     
-    public Menu(Inventory inventory) {
-        this.inventory = inventory;
+    public Contents(List<ItemStack> data, Map<String, Button> buttons) {
+        this.data = data;
+        this.buttons = buttons;
     }
     
     
-    public abstract void render(Contents contents);
+    public List<ItemStack> getData() {
+        return data;
+    }
     
-    public abstract void display(Player player);
+    public Map<String, Button> getButtons() {
+        return buttons;
+    }
     
 }

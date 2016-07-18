@@ -17,28 +17,46 @@
  */
 package com.karusmc.menuwork.controller;
 
-import org.bukkit.*;
+import com.karusmc.menuwork.contents.Contents;
+import com.karusmc.menuwork.menu.Menu;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidButton extends Button {
+public class SimpleController implements EventListener {
     
-    public InvalidButton() {
-        super(Material.GLASS, 1, (short) 0);
-    }
-    
-    public InvalidButton(ItemStack stack) {
-        super(stack);
-    }
+    private Menu menu;
+    private Contents contents;
     
     
     @Override
-    public void onClick(Inventory inventory, Player player) {
-        player.sendMessage(ChatColor.RED + "An error has occured. Please contact your server administration.");
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        ItemStack item = event.getCurrentItem();
+        Player player = (Player) event.getWhoClicked();
+        
+        if (item instanceof Button) {
+            ((Button) item).onClick(event.getInventory(), player);
+        }
+        
+        event.setCancelled(true);
+    }
+
+    @Override
+    @EventHandler
+    public void onDrag(InventoryDragEvent event) {
+        event.setCancelled(true);
+    }
+
+    @Override
+    @EventHandler
+    public void onClose(InventoryCloseEvent event) {
+        
     }
     
 }

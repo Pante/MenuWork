@@ -15,43 +15,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.model;
+package com.karusmc.menuwork.menu;
 
-import com.karusmc.menuwork.controller.Button;
-import java.util.Map;
-import org.bukkit.inventory.ItemStack;
+import java.util.*;
+
+import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class Contents {
+public class Template {
     
-    Map<String, Button> buttons;
-    Map<String, ItemStack> data;
+    private InventoryType type;
+    private Map<Integer, ItemStack> items;
     
-    private Contents() {}
     
-    public Contents(Map<String, Button> buttons, Map<String, ItemStack> data) {
-        this.buttons = buttons;
-        this.data = data;
+    private Template() {}
+    
+    public Template(InventoryType type, Map<Integer, ItemStack> items) {
+        this.type = type;
+        this.items = items;
     }
     
     
-    public Map<String, Button> getButtons() {
-        return buttons;
+    public boolean isCompatible(Inventory inventory) {
+        return type == inventory.getType() && Collections.max(items.keySet()) <= inventory.getSize();
     }
     
-    public Map<String, ItemStack> getData() {
-        return data;
-    }
-    
-    public void updateButtons(Map<String, Button> buttons) {
-        this.buttons = buttons;
-    }
-    
-    public void updateData(Map<String, ItemStack> data) {
-        this.data = data;
+    public void apply(Inventory inventory) {
+        items.forEach((slot, item) -> inventory.setItem(slot, item));
     }
     
 }

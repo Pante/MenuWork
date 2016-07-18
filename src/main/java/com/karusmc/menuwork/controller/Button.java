@@ -18,7 +18,8 @@
 package com.karusmc.menuwork.controller;
 
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.*;
 
 /**
  *
@@ -49,7 +50,7 @@ public abstract class Button extends ItemStack {
     }
     
     
-    public abstract void onClick();
+    public abstract void onClick(Inventory inventory, Player player);
     
     
     public String getButtonType() {

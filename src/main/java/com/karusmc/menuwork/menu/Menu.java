@@ -15,20 +15,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.view;
+package com.karusmc.menuwork.menu;
 
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.ItemStack;
+import com.karusmc.menuwork.contents.Contents;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class Template {
+public abstract class Menu {
     
-    private InventoryType type;
-    private int size;
+    protected Inventory inventory;
     
-    private ItemStack[][] items;
-       
+    
+    private Menu() {}
+    
+    protected Menu(Inventory inventory) {
+        this.inventory = inventory;
+    }
+    
+    protected Menu(Inventory inventory, Template template) {
+        this.inventory = inventory;
+        template.apply(this.inventory);
+    }
+    
+    
+    public abstract void render(Contents contents);
+    
+    public abstract void display(Player player);
+    
+    
+    public boolean isEqualTo(Inventory inventory) {
+        return this.inventory.equals(inventory);
+    }
+    
 }
