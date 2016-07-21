@@ -36,7 +36,7 @@ public class Contents {
     public Contents(List<ItemStack> data, Map<String, Button> buttons) {
         this.data = data;
         this.buttons = buttons;
-    }
+}
     
     
     public List<ItemStack> getData() {

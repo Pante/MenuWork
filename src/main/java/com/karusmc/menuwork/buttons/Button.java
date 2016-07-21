@@ -15,30 +15,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.controller;
-
-import org.bukkit.*;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.*;
+package com.karusmc.menuwork.buttons;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidButton extends Button {
-    
-    public InvalidButton() {
-        super(Material.GLASS, 1, (short) 0);
-    }
-    
-    public InvalidButton(ItemStack stack) {
-        super(stack);
-    }
-    
-    
-    @Override
-    public void onClick(Inventory inventory, Player player) {
-        player.sendMessage(ChatColor.RED + "An error has occured. Please contact your server administration.");
-    }
+public class Button {
     
 }

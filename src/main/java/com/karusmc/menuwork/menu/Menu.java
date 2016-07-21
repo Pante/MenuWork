@@ -17,7 +17,6 @@
  */
 package com.karusmc.menuwork.menu;
 
-import com.karusmc.menuwork.contents.Contents;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 
@@ -36,19 +35,25 @@ public abstract class Menu {
         this.inventory = inventory;
     }
     
-    protected Menu(Inventory inventory, Template template) {
+    
+    public abstract void renderButtons();
+    
+    public abstract void renderData();
+    
+    
+    public void render() {
+        renderButtons();
+        renderData();
+    }
+    
+    public void update(Inventory inventory) {
         this.inventory = inventory;
-        template.apply(this.inventory);
+        renderButtons();
+        renderData();
     }
     
-    
-    public abstract void render(Contents contents);
-    
-    public abstract void display(Player player);
-    
-    
-    public boolean isEqualTo(Inventory inventory) {
-        return this.inventory.equals(inventory);
+    public void display(Player player) {
+        player.openInventory(inventory);
     }
-    
+  
 }
