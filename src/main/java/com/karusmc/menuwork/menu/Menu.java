@@ -17,6 +17,8 @@
  */
 package com.karusmc.menuwork.menu;
 
+import com.karusmc.menuwork.contents.Contents;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 
@@ -36,21 +38,22 @@ public abstract class Menu {
     }
     
     
-    public abstract void renderButtons();
-    
-    public abstract void renderData();
-    
-    
-    public void render() {
-        renderButtons();
-        renderData();
-    }
-    
-    public void update(Inventory inventory) {
+    public void render(Inventory inventory, Contents contents) {
         this.inventory = inventory;
-        renderButtons();
-        renderData();
+        renderData(contents);
+        renderButtons(contents);
     }
+    
+    public void render(Contents contents) {
+        renderData(contents);
+        renderButtons(contents);
+    }
+    
+    
+    public abstract void renderButtons(Contents contents);
+    
+    public abstract void renderData(Contents contents);
+
     
     public void display(Player player) {
         player.openInventory(inventory);

@@ -15,13 +15,31 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.contents;
+package com.karusmc.menuwork.buttons;
+
+import java.util.*;
+import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class Contents {
+public class DynamicButtonFactory {
+    
+    private static final Map<String, Class<? extends Button>> REGISTERED_BUTTONS = new HashMap<>();
+    
+    private static final Class[] ITEMSTACK = new Class[] { ItemStack.class };
+    
+    
+    public static Button create(String type, ItemStack item) {
+        try {
+            return REGISTERED_BUTTONS.get(type).getConstructor(ITEMSTACK).newInstance(item);
+        } catch (ReflectiveOperationException e) {
+            //TODO
+            return null;
+        }
+        
+    }
     
     
     

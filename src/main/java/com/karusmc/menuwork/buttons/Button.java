@@ -17,10 +17,34 @@
  */
 package com.karusmc.menuwork.buttons;
 
+import org.bukkit.Material;
+import org.bukkit.inventory.*;
+
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class Button {
+public abstract class Button extends ItemStack {
+    
+    private Button() {}
+    
+    public Button(ItemStack item) {
+        super(item);
+    }
+    
+    public Button(Material type) {
+        super(type);
+    }
+    
+    public Button(Material type, int amount) {
+        super(type, amount);
+    }
+    
+    public Button(Material type, int amount, short metadata) {
+        super(type, amount, metadata);
+    }
+    
+    
+    public abstract void onClick();
     
 }
