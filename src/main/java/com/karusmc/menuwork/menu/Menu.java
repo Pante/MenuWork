@@ -40,6 +40,7 @@ public abstract class Menu {
     
     public void render(Inventory inventory, Contents contents) {
         this.inventory = inventory;
+        
         renderData(contents);
         renderButtons(contents);
     }
