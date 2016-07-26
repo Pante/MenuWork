@@ -26,7 +26,7 @@ import java.util.*;
 public class ButtonFactory {
     
     private static final Map<String, Class<? extends Button>> BUTTONS = new HashMap<>();
-    private static Button invalidButtonHandler; // TODO
+    private static Button defaultButton = new DefaultButton();
     
     
     public static void register(String type, Class<? extends Button> button) {
@@ -35,16 +35,6 @@ public class ButtonFactory {
     
     public static void unregister(String type) {
         BUTTONS.remove(type);
-    }
-    
-    
-    public static Button create(String type) {
-        try {
-            return BUTTONS.get(type).getConstructor().newInstance();
-            
-        } catch (ReflectiveOperationException | NullPointerException e) {
-            return invalidButtonHandler;
-        }
     }
     
     
@@ -57,13 +47,17 @@ public class ButtonFactory {
         }
     }
     
-    
-    public static Button getInvalidButtonHandler() {
-        return invalidButtonHandler;
+    public static Button create(String type) {
+        return createOrDefault(type, defaultButton);
     }
     
-    public static void setInvalidButtonHandler(Button invalidButtonHandler) {
-        ButtonFactory.invalidButtonHandler = invalidButtonHandler;
+    
+    public static Button getDefaultButton() {
+        return defaultButton;
+    }
+    
+    public static void setDefaultButton(Button defaultButton) {
+        ButtonFactory.defaultButton = defaultButton;
     }
     
 }

@@ -59,5 +59,10 @@ public abstract class Menu {
     public void display(Player player) {
         player.openInventory(inventory);
     }
+    
+    
+    public Inventory getInventory() {
+        return inventory;
+    }
   
 }

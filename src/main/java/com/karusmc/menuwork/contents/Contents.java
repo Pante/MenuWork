@@ -17,12 +17,43 @@
  */
 package com.karusmc.menuwork.contents;
 
+import com.karusmc.menuwork.buttons.Button;
+
+import java.util.*;
+
+import org.bukkit.inventory.ItemStack;
+
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
 public class Contents {
     
+    private Map<String, Button> buttons;
+    private List<ItemStack> data;
     
+    
+    public Contents() {
+        buttons = new HashMap<>();
+        data = new ArrayList<>();
+    }
+    
+    
+    public Map<String, Button> getButtons() {
+        return buttons;
+    }
+    
+    public void setButton(Map<String, Button> buttons) {
+        this.buttons = buttons;
+    }
+    
+    
+    public List<ItemStack> getData() {
+        return data;
+    }
+    
+    public void setData(List<ItemStack> data) {
+        this.data = data;
+    }
     
 }

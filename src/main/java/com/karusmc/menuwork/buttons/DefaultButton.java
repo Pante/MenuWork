@@ -17,30 +17,35 @@
  */
 package com.karusmc.menuwork.buttons;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.*;
+import org.bukkit.*;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class DefaultButton extends Button {
     
-    private Button() {}
-    
-    public Button(ItemStack item) {
-        super(item);
+    public DefaultButton() {
+        super(Material.STAINED_GLASS_PANE, 1, (short) 14);
+        
+        ItemMeta meta = getItemMeta();
+        meta.setDisplayName(ChatColor.RED + "Invalid Button");
+        setItemMeta(meta);
     }
     
-    public Button(Material type) {
+    public DefaultButton(Material type) {
         super(type);
     }
     
-    public Button(Material type, int amount, short metadata) {
-        super(type, amount, metadata);
+    public DefaultButton(Material type, int amount, short metadata) {
+        super(type, amount, (short) metadata);
     }
     
-    
-    public abstract void onClick();
+
+    @Override
+    public void onClick() {
+        
+    }
     
 }

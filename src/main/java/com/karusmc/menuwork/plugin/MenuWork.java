@@ -15,32 +15,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.buttons;
+package com.karusmc.menuwork.plugin;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.*;
+import com.karusmc.menuwork.controller.*;
+
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class MenuWork extends JavaPlugin {
     
-    private Button() {}
-    
-    public Button(ItemStack item) {
-        super(item);
+    @Override
+    public void onEnable() {
+        new SimpleController();
     }
     
-    public Button(Material type) {
-        super(type);
-    }
-    
-    public Button(Material type, int amount, short metadata) {
-        super(type, amount, metadata);
+    @Override
+    public void onDisable() {
+        
     }
     
     
-    public abstract void onClick();
+    
     
 }
