@@ -15,37 +15,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.buttons;
+package com.karusmc.menuwork.implementation;
 
-import org.bukkit.*;
-import org.bukkit.inventory.meta.ItemMeta;
+import com.karusmc.menuwork.controller.EventListener;
+import com.karusmc.menuwork.menu.*;
+import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryType;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class DefaultButton extends Button {
-    
-    public DefaultButton() {
-        super(Material.STAINED_GLASS_PANE, 1, (short) 14);
-        
-        ItemMeta meta = getItemMeta();
-        meta.setDisplayName(ChatColor.RED + "Invalid Button");
-        setItemMeta(meta);
+public class ChoiceMenu extends Menu {
+
+    public ChoiceMenu(Contents contents, EventListener listener) {
+        super(Bukkit.createInventory(null, InventoryType.HOPPER, "Are you sure?"), contents, listener);
     }
-    
-    public DefaultButton(Material type) {
-        super(type);
-    }
-    
-    public DefaultButton(Material type, int amount, short metadata) {
-        super(type, amount, (short) metadata);
-    }
-    
 
     @Override
-    public void onClick() {
+    public void renderData() {
         
+    }
+
+    @Override
+    public void renderButtons() {
+        inventory.setItem(2, contents.getButtons().get("Yes_Button"));
+        inventory.setItem(5, contents.getButtons().get("No_Button"));
     }
     
 }

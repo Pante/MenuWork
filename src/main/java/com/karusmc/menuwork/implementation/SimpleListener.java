@@ -15,12 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.controller;
+package com.karusmc.menuwork.implementation;
 
-import com.karusmc.menuwork.buttons.Button;
-import com.karusmc.menuwork.contents.Contents;
+import com.karusmc.menuwork.controller.EventListener;
 import com.karusmc.menuwork.menu.Menu;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.*;
 
@@ -28,31 +26,20 @@ import org.bukkit.event.inventory.*;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class SimpleController extends Controller {
+public class SimpleListener implements EventListener {
     
-    private SimpleController() {
-        super(null, null);
-    }
-    
-    public SimpleController(Menu menu, Contents contents) {
-        super(menu, contents);
-    }
-
+    private Menu menu;
     
     @Override
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        if (menu.getInventory() == event.getInventory() && event.getCurrentItem() instanceof Button) {
-            ((Button) event.getCurrentItem()).onClick();
-        }
+        if (event.getInventory() == menu)
     }
 
     @Override
     @EventHandler
     public void onDrag(InventoryDragEvent event) {
-        if (menu.getInventory() == event.getInventory()) {
-            event.setCancelled(true);
-        }
+        
     }
 
     @Override

@@ -15,32 +15,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.buttons;
+package com.karusmc.menuwork.implementation;
 
+import com.karusmc.menuwork.button.Button;
+import com.karusmc.menuwork.menu.Menu;
 import org.bukkit.Material;
-import org.bukkit.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
-    
-    private Button() {}
-    
-    public Button(ItemStack item) {
-        super(item);
-    }
-    
-    public Button(Material type) {
+public class YesButton extends Button {
+
+    public YesButton(Material type) {
         super(type);
     }
-    
-    public Button(Material type, int amount, short metadata) {
-        super(type, amount, metadata);
+
+    @Override
+    public void onClick(InventoryClickEvent event, Menu menu) {
+        event.getWhoClicked().sendMessage("Confirmed");
+        event.setCancelled(true);
+        event.getWhoClicked().closeInventory();
     }
-    
-    
-    public abstract void onClick();
     
 }

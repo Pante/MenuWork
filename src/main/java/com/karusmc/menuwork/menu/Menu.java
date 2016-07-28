@@ -17,52 +17,47 @@
  */
 package com.karusmc.menuwork.menu;
 
-import com.karusmc.menuwork.contents.Contents;
+import com.karusmc.menuwork.controller.EventListener;
 
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.*;
+import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * @param <Display>
  */
-public abstract class Menu {
+
+public abstract class Menu<Display extends Inventory> {
     
-    protected Inventory inventory;
-    
+    protected Display inventory;
+    protected Contents contents;
+    protected EventListener listener;
     
     private Menu() {}
     
-    protected Menu(Inventory inventory) {
+    public Menu(Display inventory, Contents contents, EventListener listener) {
         this.inventory = inventory;
+        this.contents = contents;
+        this.listener = listener;
     }
     
     
-    public void render(Inventory inventory, Contents contents) {
-        this.inventory = inventory;
-        
-        renderData(contents);
-        renderButtons(contents);
+    public void render() {
+        renderData();
+        renderButtons();
     }
     
-    public void render(Contents contents) {
-        renderData(contents);
-        renderButtons(contents);
+    public abstract void renderData();
+    
+    public abstract void renderButtons();
+    
+    
+    public Contents getContents() {
+        return contents;
     }
     
-    
-    public abstract void renderButtons(Contents contents);
-    
-    public abstract void renderData(Contents contents);
-
-    
-    public void display(Player player) {
-        player.openInventory(inventory);
+    public void setContents(Contents contents) {
+        this.contents = contents;
     }
     
-    
-    public Inventory getInventory() {
-        return inventory;
-    }
-  
 }

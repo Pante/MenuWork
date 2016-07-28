@@ -15,39 +15,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.controller;
+package com.karusmc.menuwork.menu;
 
-import com.karusmc.menuwork.contents.Contents;
-import com.karusmc.menuwork.menu.Menu;
-
-import org.bukkit.event.*;
-import org.bukkit.event.inventory.*;
+import com.karusmc.menuwork.button.Button;
+import java.util.*;
+import org.bukkit.inventory.ItemStack;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Controller implements Listener {
+public class Contents {
     
-    protected Menu menu;
-    protected Contents contents;
+    private Map<String, Button> buttons;
+    private List<ItemStack> items;
     
     
-    private Controller() {}
+    public Map<String, Button> getButtons() {
+        return buttons;
+    }
     
-    public Controller(Menu menu, Contents contents) {
-        this.menu = menu;
-        this.contents = contents;
+    public void setButtons(Map<String, Button> buttons) {
+        this.buttons = buttons;
     }
     
     
-    @EventHandler
-    public abstract void onClick(InventoryClickEvent event);
+    public List<ItemStack> getItems() {
+        return items;
+    }
     
-    @EventHandler
-    public abstract void onDrag(InventoryDragEvent event);
-    
-    @EventHandler
-    public abstract void onClose(InventoryCloseEvent event);
+    public void setItems(List<ItemStack> items) {
+        this.items = items;
+    }
     
 }

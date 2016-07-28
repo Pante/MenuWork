@@ -15,45 +15,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.contents;
+package com.karusmc.menuwork.button;
 
-import com.karusmc.menuwork.buttons.Button;
+import com.karusmc.menuwork.menu.Menu;
 
-import java.util.*;
-
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class Contents {
+public abstract class Button extends ItemStack {
     
-    private Map<String, Button> buttons;
-    private List<ItemStack> data;
+    private Button() {}
     
+    public Button(ItemStack item) {
+        super(item);
+    }
     
-    public Contents() {
-        buttons = new HashMap<>();
-        data = new ArrayList<>();
+    public Button(Material type) {
+        super(type);
+    }
+    
+    public Button(Material type, int amount, short metadata) {
+        super(type, amount, metadata);
     }
     
     
-    public Map<String, Button> getButtons() {
-        return buttons;
-    }
+    public abstract void onClick(InventoryClickEvent event, Menu menu);
     
-    public void setButton(Map<String, Button> buttons) {
-        this.buttons = buttons;
-    }
-    
-    
-    public List<ItemStack> getData() {
-        return data;
-    }
-    
-    public void setData(List<ItemStack> data) {
-        this.data = data;
-    }
+    this.set
     
 }
