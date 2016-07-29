@@ -15,29 +15,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.implementation;
+package com.karusmc.menuwork.controller;
 
-import com.karusmc.menuwork.button.Button;
-import com.karusmc.menuwork.menu.Menu;
-import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.*;
+import org.bukkit.event.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class NoButton extends Button {
-
-    public NoButton(Material type) {
-        super(type);
-    }
-
+public interface Controller extends Listener {
     
-    @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.getWhoClicked().sendMessage("Cancelled");
-        event.setCancelled(true);
-        event.getWhoClicked().closeInventory();
-    }
+    public void onClick(InventoryClickEvent event);
+    
+    
+    public default void onDrag(InventoryDragEvent event) {}
+    
+    public default void onClose(InventoryCloseEvent event) {}
     
 }

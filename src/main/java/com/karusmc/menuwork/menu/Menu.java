@@ -17,28 +17,29 @@
  */
 package com.karusmc.menuwork.menu;
 
-import com.karusmc.menuwork.controller.EventListener;
-
-import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  * @param <Display>
  */
-
 public abstract class Menu<Display extends Inventory> {
     
     protected Display inventory;
     protected Contents contents;
-    protected EventListener listener;
+    
     
     private Menu() {}
     
-    public Menu(Display inventory, Contents contents, EventListener listener) {
+    public Menu(Display inventory) {
+        this.inventory = inventory;
+        contents = new Contents();
+    }
+    
+    public Menu(Display inventory, Contents contents) {
         this.inventory = inventory;
         this.contents = contents;
-        this.listener = listener;
     }
     
     
@@ -46,10 +47,15 @@ public abstract class Menu<Display extends Inventory> {
         renderData();
         renderButtons();
     }
-    
+
     public abstract void renderData();
-    
+
     public abstract void renderButtons();
+    
+    
+    public boolean compare(Inventory Inventory) {
+        return this.inventory == inventory;
+    }
     
     
     public Contents getContents() {
@@ -59,5 +65,6 @@ public abstract class Menu<Display extends Inventory> {
     public void setContents(Contents contents) {
         this.contents = contents;
     }
+
     
 }

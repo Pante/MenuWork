@@ -15,37 +15,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.implementation;
+package com.karusmc.menuwork.buttons;
 
-import com.karusmc.menuwork.controller.EventListener;
 import com.karusmc.menuwork.menu.Menu;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.inventory.*;
+
+import org.bukkit.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class SimpleListener implements EventListener {
+public class DefaultButton extends Button {
     
-    private Menu menu;
+    public DefaultButton() {
+        super(Material.STAINED_GLASS_PANE, 0, (short) 1);
+    }
+    
+    public DefaultButton(Material type) {
+        super(type);
+    }
+    
+    public DefaultButton(Material type, int amount, short metadata) {
+        super(type, amount, metadata);
+    }
+    
     
     @Override
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        if (event.getInventory() == menu)
-    }
-
-    @Override
-    @EventHandler
-    public void onDrag(InventoryDragEvent event) {
-        
-    }
-
-    @Override
-    @EventHandler
-    public void onClose(InventoryCloseEvent event) {
-        
+    public void onClick(InventoryClickEvent event, Menu menu) {
+        event.setCancelled(true);
+        event.getWhoClicked().sendMessage(ChatColor.RED + "An error has occured. Please contact the server administration.");
     }
     
 }

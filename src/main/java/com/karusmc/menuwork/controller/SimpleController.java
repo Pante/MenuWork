@@ -15,32 +15,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.implementation;
+package com.karusmc.menuwork.controller;
 
-import com.karusmc.menuwork.controller.EventListener;
-import com.karusmc.menuwork.menu.*;
-import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryType;
+import com.karusmc.menuwork.menu.Menu;
+
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.*;
+
+import static com.karusmc.menuwork.controller.EventUtility.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class ChoiceMenu extends Menu {
-
-    public ChoiceMenu(Contents contents, EventListener listener) {
-        super(Bukkit.createInventory(null, InventoryType.HOPPER, "Are you sure?"), contents, listener);
+public class SimpleController implements Controller {
+    
+    private Menu menu;
+    
+    
+    private SimpleController() {}
+    
+    public SimpleController(Menu menu) {
+        this.menu = menu;
     }
-
+    
+    
     @Override
-    public void renderData() {
-        
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        if (menu.compare(event.getInventory())) {
+            handleButtonClick(event, menu);
+        }
     }
-
+    
+    
     @Override
-    public void renderButtons() {
-        inventory.setItem(2, contents.getButtons().get("Yes_Button"));
-        inventory.setItem(5, contents.getButtons().get("No_Button"));
+    @EventHandler
+    public void onDrag(InventoryDragEvent event) {
+        checkAndCancel(event, menu);
     }
     
 }

@@ -17,7 +17,7 @@
  */
 package com.karusmc.menuwork.menu;
 
-import com.karusmc.menuwork.button.Button;
+import com.karusmc.menuwork.buttons.Button;
 import java.util.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,24 +28,35 @@ import org.bukkit.inventory.ItemStack;
 public class Contents {
     
     private Map<String, Button> buttons;
-    private List<ItemStack> items;
+    private List<ItemStack> data;
+    
+    
+    public Contents() {
+        buttons = new HashMap<>();
+        data = new ArrayList<>();
+    }
+    
+    public Contents(Map<String, Button> buttons, List<ItemStack> data) {
+        this.buttons = buttons;
+        this.data = data;
+    }
     
     
     public Map<String, Button> getButtons() {
         return buttons;
-    }
+}
     
     public void setButtons(Map<String, Button> buttons) {
         this.buttons = buttons;
     }
     
     
-    public List<ItemStack> getItems() {
-        return items;
+    public List<ItemStack> getData() {
+        return data;
     }
     
-    public void setItems(List<ItemStack> items) {
-        this.items = items;
+    public void setData(List<ItemStack> data) {
+        this.data = data;
     }
     
 }
