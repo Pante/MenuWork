@@ -24,20 +24,19 @@ import org.bukkit.Material;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class ButtonBuilder {
+public class ButtonFactory {
     
     private static final Map<String, Class<? extends Button>> BUTTONS = new HashMap<>();
     
     private static Button defaultButton = new DefaultButton();
-    private static Button built;
     
     
-    private ButtonBuilder() {}
+    private ButtonFactory() {}
     
     
     public static void register(String type, Class<? extends Button> button) {
         BUTTONS.putIfAbsent(type, button);
-    }
+}
     
     public static void unregister(String type) {
         BUTTONS.remove(type);
@@ -58,28 +57,48 @@ public class ButtonBuilder {
     }
     
     
-    public static Button material(Material type) {
-        built.setType(type);
-        return built;
-    }
-    
-    public static Button amount(int amount) {
-        built.setAmount(amount);
-        return built;
-    }
-    
-    public static Button metadata(short metadata) {
-        built.setDurability(metadata);
-        return built;
-    }
-    
-    
     public static Button getDefaultButton() {
         return defaultButton;
     }
     
     public static void setDefaultButton(Button button) {
         defaultButton = button;
+    }
+    
+    
+    public static class Builder {
+        
+        private Button button;
+        
+        
+        public Builder(String type) {
+            button = create(type);
+        }
+        
+        public Builder(String type, Button defaultButton) {
+            button = createOrDefault(type, defaultButton);
+        }
+        
+        
+        public Builder material(Material type) {
+            button.setType(type);
+            return this;
+        }
+
+        public Builder amount(int amount) {
+            button.setAmount(amount);
+            return this;
+        }
+
+        public Builder metadata(short metadata) {
+            button.setDurability(metadata);
+            return this;
+        }
+        
+        public Button build() {
+            return button;
+        }
+        
     }
     
 }
