@@ -15,46 +15,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
-
-import com.karusmc.menu.Menu;
-
-import org.bukkit.Material;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
+package com.karusmc.menu;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
-    
-    private Button() {}
-    
-    public Button(ItemStack itemstack) {
-        super(itemstack);
-    }
-    
-    public Button(Material type) {
-        super(type);
-    }
- 
-    
-    public Button amount(int amount) {
-        setAmount(amount);
-        return this;
-    }
-    
-    public Button durability(short durability) {
-        setDurability(durability);
-        return this;
-    }
-    
-    
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
-    
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
-    }
+public class Menu {
     
 }

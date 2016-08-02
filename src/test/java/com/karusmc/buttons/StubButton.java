@@ -20,41 +20,23 @@ package com.karusmc.buttons;
 import com.karusmc.menu.Menu;
 
 import org.bukkit.Material;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
-    
-    private Button() {}
-    
-    public Button(ItemStack itemstack) {
-        super(itemstack);
+public class StubButton extends Button {
+
+    public StubButton() {
+        super(Material.ANVIL);
     }
-    
-    public Button(Material type) {
-        super(type);
-    }
- 
-    
-    public Button amount(int amount) {
-        setAmount(amount);
-        return this;
-    }
-    
-    public Button durability(short durability) {
-        setDurability(durability);
-        return this;
+
+    @Override
+    public void onClick(InventoryClickEvent event, Menu menu) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
-    
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
-    }
     
 }

@@ -19,42 +19,47 @@ package com.karusmc.buttons;
 
 import com.karusmc.menu.Menu;
 
-import org.bukkit.Material;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.inventory.InventoryDragEvent;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class ButtonTest {
     
-    private Button() {}
+    private Button stub;
     
-    public Button(ItemStack itemstack) {
-        super(itemstack);
-    }
-    
-    public Button(Material type) {
-        super(type);
-    }
- 
-    
-    public Button amount(int amount) {
-        setAmount(amount);
-        return this;
-    }
-    
-    public Button durability(short durability) {
-        setDurability(durability);
-        return this;
+    public ButtonTest() {
+        stub = new StubButton();
     }
     
     
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
-    
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
+    @Test
+    public void amount_returns_specified() {
+        stub.amount(1);
+        assertEquals(1, stub.getAmount());
     }
     
+    @Test
+    public void durability_returns_specified() {
+        stub.durability((short) 10);
+        assertEquals(10, stub.getDurability());
+    }
+    
+    
+    @Test
+    public void onDrag_cancels_event() {
+        InventoryDragEvent event = mock(InventoryDragEvent.class);
+        Menu menu = mock(Menu.class);
+        
+        stub.onDrag(event, menu);
+        
+        verify(event, times(1)).setCancelled(true);
+    }
+
 }
