@@ -17,50 +17,30 @@
  */
 package com.karusmc.buttons;
 
-import com.karusmc.buttons.mockbuttons.NormalButton;
 import com.karusmc.menu.Menu;
 
-import org.bukkit.event.inventory.InventoryDragEvent;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import org.bukkit.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class ButtonTest {
+public class DefaultButton extends Button {
     
-    private Button stub;
-    
-    public ButtonTest() {
-        stub = new NormalButton();
+    public DefaultButton() {
+        super(Material.STAINED_GLASS_PANE);
+        durability((short) 13);
     }
     
     
-    @Test
-    public void amount_returns_specified() {
-        stub.amount(1);
-        assertEquals(1, stub.getAmount());
-    }
-    
-    @Test
-    public void durability_returns_specified() {
-        stub.durability((short) 10);
-        assertEquals(10, stub.getDurability());
-    }
-    
-    
-    @Test
-    public void onDrag_cancels_event() {
-        InventoryDragEvent event = mock(InventoryDragEvent.class);
-        Menu menu = mock(Menu.class);
-        
-        stub.onDrag(event, menu);
-        
-        verify(event, times(1)).setCancelled(true);
+    public Button createNewInstance(){
+        return new DefaultButton();
     }
 
+    @Override
+    public void onClick(InventoryClickEvent event, Menu menu) {
+        event.getWhoClicked().sendMessage(ChatColor.RED + "You should not be seeing this. Please contact the server administration.");
+    }
+    
 }

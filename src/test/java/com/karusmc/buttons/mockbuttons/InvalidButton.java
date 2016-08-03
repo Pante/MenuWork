@@ -15,10 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.buttons.mockbuttons;
 
+import com.karusmc.buttons.Button;
 import com.karusmc.menu.Menu;
-
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -26,17 +26,15 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class StubButton extends Button {
-
-    public StubButton() {
-        super(Material.ANVIL);
+public class InvalidButton extends Button {
+    
+    private InvalidButton() {
+        super(Material.AIR);
     }
-
+    
     @Override
     public void onClick(InventoryClickEvent event, Menu menu) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
     
 }
