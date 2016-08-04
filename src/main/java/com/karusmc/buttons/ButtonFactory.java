@@ -26,7 +26,7 @@ import java.util.*;
 public class ButtonFactory {
     
     private static final Map<String, Class<? extends Button>> BUTTONS = new HashMap<>();
-    private static DefaultButton defaultButton = new DefaultButton();
+    private static InvalidButtonHandler handler = new InvalidButtonHandler();
     
     
     private ButtonFactory() {}
@@ -50,7 +50,7 @@ public class ButtonFactory {
     
     
     public static Button create(String type) {
-        return createOrDefault(type, defaultButton.createNewInstance());
+        return createOrDefault(type, handler.createNewInstance());
     }
     
     public static Button createOrDefault(String type, Button button) {
@@ -63,12 +63,12 @@ public class ButtonFactory {
     }
     
     
-    public static DefaultButton getDefaultButton() {
-        return defaultButton;
+    public static InvalidButtonHandler getInvalidButtonHadler() {
+        return handler;
     }
     
-    public static void setDefaultButton(DefaultButton button) {
-        defaultButton = button;
+    public static void setDefaultButton(InvalidButtonHandler aHandler) {
+        handler = aHandler;
     }
     
 }

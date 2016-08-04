@@ -17,25 +17,31 @@
  */
 package com.karusmc.buttons;
 
-import com.karusmc.menu.Menu;
+import com.karusmc.buttons.mockbuttons.*;
+import org.junit.*;
 
-import org.bukkit.*;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class DefaultButton extends Button {
+public class InvalidButtonHandlerTest {
     
-    public DefaultButton() {
-        super(Material.STAINED_GLASS_PANE);
-        durability((short) 13);
+    private InvalidButtonHandler handler;
+    
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void createNewInstance_ThrowsException() {
+        handler = new InvalidButtonHandler(InvalidButton.class);
+        handler.createNewInstance();
     }
-
-    @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.getWhoClicked().sendMessage(ChatColor.RED + "You should not be seeing this. Please contact the server administration.");
+    
+    
+    @Test
+    public void createNewInstance_ReturnsButton() {
+        handler = new InvalidButtonHandler();
+        assertEquals(DefaultButton.class, handler.createNewInstance().getClass());
     }
     
 }

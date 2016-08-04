@@ -31,14 +31,15 @@ import static org.junit.Assert.*;
  * @author PanteLegacy @ karusmc.com
  */
 public class ButtonFactoryTest {
+
+    private static final String WILL_WORK= "Work";
+    private static final String WILL_DEFAULT = "default";
+    private static final String WILL_FAIL = "fail";
+    
     
     private Map<String, Class<? extends Button>> buttons;
     
     private Button normal;
-    
-    private String shouldWork;
-    private String shouldDefault;
-    private String shouldFail;
     
     
     public ButtonFactoryTest() throws ReflectiveOperationException {
@@ -49,87 +50,69 @@ public class ButtonFactoryTest {
         buttons = (Map<String, Class<? extends Button>>) field.get(null);
         
         normal = new NormalButton();
-        
-        shouldWork = "work";
-        shouldDefault = "default";
-        shouldFail = "fail";
-        
     }
     
     
-    @After
+    @Before
     public void clearMap() {
         buttons.clear();
     }
     
     
-    @Test(expected = IllegalArgumentException.class)
-    public void register_ThrowsException() {
-        ButtonFactory.register(shouldFail, InvalidButton.class);
-    }
-    
     @Test
-    public void register_DoesNotPutButton() {
+    public void register_ThrowsException_DoesNotPutButton() {
         try {
-            ButtonFactory.register(shouldFail, InvalidButton.class);
-        } catch (IllegalArgumentException e) {}
+            ButtonFactory.register(WILL_FAIL, InvalidButton.class);
+        } catch (IllegalArgumentException e) {
+            assertTrue(buttons.isEmpty());
+            return;
+        }
         
-        assertTrue(buttons.isEmpty());
+        throw new RuntimeException();
     }
     
     
     @Test
     public void register_RegistersButton() {
-        ButtonFactory.register(shouldWork, NormalButton.class);
-        
-        assertEquals(NormalButton.class, buttons.get(shouldWork));
+        ButtonFactory.register(WILL_WORK, NormalButton.class);
+        assertEquals(NormalButton.class, buttons.get(WILL_WORK));
     }
     
     
     @Test
     public void create_ReturnsButton() {
-        
-        buttons.put(shouldWork, NormalButton.class);
-        Button returned = ButtonFactory.create(shouldWork);
-        
-        assertEquals(NormalButton.class, returned.getClass());
-        
+        buttons.put(WILL_WORK, NormalButton.class);
+        assertEquals(NormalButton.class, ButtonFactory.create(WILL_WORK).getClass());
     }
     
     @Test
     public void create_InvalidType_ReturnsDefaultButton() {
-        
-        buttons.put("", NormalButton.class);
-        Button returned = ButtonFactory.create(shouldDefault);
-        
-        assertEquals(DefaultButton.class, returned.getClass());
-        
+        assertEquals(DefaultButton.class, ButtonFactory.create(WILL_DEFAULT).getClass());
     }
     
     @Test
     public void create_InvalidConstructor_ReturnsDefaultButton() {
-        buttons.put(shouldDefault, InvalidButton.class);
-        assertEquals(DefaultButton.class, ButtonFactory.create(shouldDefault).getClass());
+        buttons.put(WILL_DEFAULT, InvalidButton.class);
+        assertEquals(DefaultButton.class, ButtonFactory.create(WILL_DEFAULT).getClass());
     }
     
     
     @Test
     public void createOrDefault_ReturnsButton() {
-        buttons.put(shouldWork, NormalButton.class);
-        assertEquals(NormalButton.class, ButtonFactory.createOrDefault(shouldWork, null).getClass());
+        buttons.put(WILL_WORK, NormalButton.class);
+        assertEquals(NormalButton.class, ButtonFactory.createOrDefault(WILL_WORK, null).getClass());
     }
     
     
     @Test
     public void createOrDefault_InvalidType_ReturnsDefaultButton() {
-        buttons.put("", DefaultButton.class);
-        assertEquals(NormalButton.class, ButtonFactory.createOrDefault(shouldDefault, normal).getClass());
+        assertEquals(NormalButton.class, ButtonFactory.createOrDefault(WILL_DEFAULT, normal).getClass());
     }
     
     @Test
     public void createOrDefault_InvalidConstructor_ReturnsDefaultButton() {
-        buttons.put(shouldDefault, InvalidButton.class);
-        assertEquals(NormalButton.class, ButtonFactory.createOrDefault(shouldDefault, normal).getClass());
+        buttons.put(WILL_DEFAULT, InvalidButton.class);
+        assertEquals(NormalButton.class, ButtonFactory.createOrDefault(WILL_DEFAULT, normal).getClass());
     }
     
 }

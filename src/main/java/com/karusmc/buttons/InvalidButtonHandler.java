@@ -17,25 +17,31 @@
  */
 package com.karusmc.buttons;
 
-import com.karusmc.menu.Menu;
-
-import org.bukkit.*;
-import org.bukkit.event.inventory.InventoryClickEvent;
-
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class DefaultButton extends Button {
+public class InvalidButtonHandler {
     
-    public DefaultButton() {
-        super(Material.STAINED_GLASS_PANE);
-        durability((short) 13);
+    private Class<? extends Button> defaultButton;
+    
+    
+    public InvalidButtonHandler() {
+        this.defaultButton = DefaultButton.class;
     }
-
-    @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.getWhoClicked().sendMessage(ChatColor.RED + "You should not be seeing this. Please contact the server administration.");
+    
+    public InvalidButtonHandler(Class<? extends Button> defaultButton) {
+        this.defaultButton = defaultButton;
+    }
+    
+    
+    public Button createNewInstance() {
+        try {
+            return defaultButton.getConstructor().newInstance();
+            
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
     
 }

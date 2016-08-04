@@ -17,10 +17,55 @@
  */
 package com.karusmc.menu;
 
+
+import org.bukkit.inventory.Inventory;
+
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * @param <Display>
  */
-public class Menu {
+public abstract class Menu<Display extends Inventory> {
+    
+    protected Display inventory;
+    protected Contents contents;
+    
+    
+    private Menu() {}
+    
+    public Menu(Display inventory) {
+        this.inventory = inventory;
+        contents = new Contents();
+    }
+    
+    public Menu(Display inventory, Contents contents) {
+        this.inventory = inventory;
+        this.contents = contents;
+    }
+    
+    
+    public void render() {
+        renderData();
+        renderButtons();
+    }
+    
+    
+    public abstract void renderButtons();
+    
+    public abstract void renderData();
+    
+    
+    public boolean is(Inventory inventory) {
+        return this.inventory == inventory;
+    }
+    
+    
+    public Contents getContents() {
+        return contents;
+    }
+    
+    public void setContents(Contents contents) {
+        this.contents = contents;
+    }
     
 }
