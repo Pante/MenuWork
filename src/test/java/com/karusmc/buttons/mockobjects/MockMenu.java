@@ -15,26 +15,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons.mockbuttons;
+package com.karusmc.buttons.mockobjects;
 
-import com.karusmc.buttons.Button;
 import com.karusmc.menu.Menu;
-
-import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class NormalButton extends Button {
+public class MockMenu extends Menu<DoubleChestInventory> {
 
-    public NormalButton() {
-        super(Material.ANVIL);
+    public MockMenu(DoubleChestInventory inventory) {
+        super(inventory);
     }
 
     @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
+    public void renderButtons() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void renderData() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

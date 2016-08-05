@@ -15,33 +15,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.buttons.mockobjects;
 
-import com.karusmc.buttons.mockobjects.InvalidButton;
-import org.junit.*;
+import com.karusmc.buttons.Button;
+import com.karusmc.menu.Menu;
 
-import static org.junit.Assert.*;
+import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidButtonHandlerTest {
-    
-    private InvalidButtonHandler handler;
-    
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void createNewInstance_ThrowsException() {
-        handler = new InvalidButtonHandler(InvalidButton.class);
-        handler.createNewInstance();
+public class NormalButton extends Button {
+
+    public NormalButton() {
+        super(Material.ANVIL);
     }
-    
-    
-    @Test
-    public void createNewInstance_ReturnsButton() {
-        handler = new InvalidButtonHandler();
-        assertEquals(DefaultButton.class, handler.createNewInstance().getClass());
+
+    @Override
+    public void onClick(InventoryClickEvent event, Menu menu) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

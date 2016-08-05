@@ -17,7 +17,8 @@
  */
 package com.karusmc.buttons;
 
-import com.karusmc.buttons.mockbuttons.*;
+import com.karusmc.buttons.mockobjects.InvalidButton;
+import com.karusmc.buttons.mockobjects.NormalButton;
 
 import java.lang.reflect.Field;
 import java.util.*;

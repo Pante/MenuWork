@@ -15,12 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.menu;
 
-import com.karusmc.buttons.mockobjects.NormalButton;
-import com.karusmc.menu.Menu;
-
-import org.bukkit.event.inventory.InventoryDragEvent;
+import com.karusmc.buttons.mockobjects.MockMenu;
+import org.bukkit.inventory.*;
 
 import org.junit.Test;
 
@@ -31,36 +29,26 @@ import static org.mockito.Mockito.*;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class ButtonTest {
+public class MenuTest {
     
-    private Button stub;
-    
-    public ButtonTest() {
-        stub = new NormalButton();
-    }
+    private DoubleChestInventory inventory;
+    private Menu menu;
     
     
-    @Test
-    public void amount_returns_specified() {
-        stub.amount(1);
-        assertEquals(1, stub.getAmount());
+    public MenuTest() {
+        inventory = mock(DoubleChestInventory.class);
+        menu = new MockMenu(inventory);
     }
     
     @Test
-    public void durability_returns_specified() {
-        stub.durability((short) 10);
-        assertEquals(10, stub.getDurability());
+    public void compare_returnsTrue() {
+        assertTrue(menu.is(inventory));
     }
-    
     
     @Test
-    public void onDrag_cancels_event() {
-        InventoryDragEvent event = mock(InventoryDragEvent.class);
-        Menu menu = mock(Menu.class);
-        
-        stub.onDrag(event, menu);
-        
-        verify(event, times(1)).setCancelled(true);
+    public void compare_returnsFalse() {
+        assertFalse(menu.is(mock(DoubleChestInventory.class)));
     }
-
+    
+    
 }
