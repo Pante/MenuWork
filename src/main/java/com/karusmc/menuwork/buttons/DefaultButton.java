@@ -15,9 +15,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.menuwork.buttons;
 
-import com.karusmc.controller.Controller;
+import com.karusmc.menuwork.menu.Menu;
 
 import org.bukkit.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -30,11 +30,11 @@ public class DefaultButton extends Button {
     
     public DefaultButton() {
         super(Material.STAINED_GLASS_PANE);
-        durability((short) 13);
+        super.durability((short) 13);
     }
 
     @Override
-    public void onClick(InventoryClickEvent event, Controller contoller) {
+    public void onClick(InventoryClickEvent event, Menu menu) {
         event.getWhoClicked().sendMessage(ChatColor.RED + "You should not be seeing this. Please contact the server administration.");
     }
     

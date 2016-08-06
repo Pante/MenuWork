@@ -15,29 +15,50 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.controller;
+package com.karusmc.menuwork.buttons;
 
-import com.karusmc.menu.Menu;
+import com.karusmc.menuwork.menu.Menu;
 
-import org.bukkit.event.Listener;
+import org.bukkit.Material;
 import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public interface Controller extends Listener {
+public abstract class Button extends ItemStack {
     
-    public void onClick(InventoryClickEvent event);
+    private Button() {}
+    
+    public Button(ItemStack item) {
+        super(item);
+    }
+    
+    public Button(Material type) {
+        super(type);
+    }
+    
+    public Button(Material type, int amount, short durability) {
+        super(type, amount, durability);
+    }
     
     
-    public default void onDrag(InventoryDragEvent event) {}
+    public Button amount(int amount) {
+        setAmount(amount);
+        return this;
+    }
     
-    public default void onClose(InventoryCloseEvent event) {}
+    public Button durability(short durability) {
+        setDurability(durability);
+        return this;
+    }
     
     
-    public Menu getMenu();
+    public abstract void onClick(InventoryClickEvent event, Menu menu);
     
-    public void setMenu();
+    public void onDrag(InventoryDragEvent event, Menu menu) {
+        event.setCancelled(true);
+    }
     
 }

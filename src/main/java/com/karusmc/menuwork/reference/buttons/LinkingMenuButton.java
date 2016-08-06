@@ -15,37 +15,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.controller;
+package com.karusmc.menuwork.reference.buttons;
 
-import com.karusmc.buttons.Button;
+import com.karusmc.menuwork.buttons.Button;
+import com.karusmc.menuwork.menu.Menu;
 
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class ControllerUtility {
+public class LinkingMenuButton extends Button {
     
-    private ControllerUtility() {}
+    private Menu menu;
     
-    
-    public static void cancelEvent(InventoryInteractEvent event, Controller controller) {
-        if (controller.getMenu().is(event.getInventory())) {
-            event.setCancelled(true);
-        }
+    public LinkingMenuButton(Material type, Menu menu) {
+        super(type);
+        this.menu = menu;
     }
-    
-    public static boolean handleButtonClick(InventoryClickEvent event, Controller controller) {
-        ItemStack item = event.getCurrentItem();
-        boolean isButton = item instanceof Button;
-        
-        if (isButton) {
-            ((Button) item).onClick(event, controller);
-        }
-        
-        return isButton;
+
+    @Override
+    public void onClick(InventoryClickEvent event, Menu menu) {
+        HandlerList.unregisterAll(menu);
+        this.menu.display((Player) event.getWhoClicked());
     }
     
 }

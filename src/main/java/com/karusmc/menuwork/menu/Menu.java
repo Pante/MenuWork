@@ -15,54 +15,64 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menu;
+package com.karusmc.menuwork.menu;
 
+import com.karusmc.menuwork.display.*;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
- * @param <Display>
  */
-public abstract class Menu<Display extends Inventory> {
+public abstract class Menu implements Listener {
     
-    protected Display inventory;
+    protected Display display;
     protected Contents contents;
     
     
     private Menu() {}
     
-    public Menu(Display inventory) {
-        this.inventory = inventory;
+    public Menu(Display display) {
+        this.display = display;
         contents = new Contents();
     }
     
-    public Menu(Display inventory, Contents contents) {
-        this.inventory = inventory;
+    public Menu(Display display, Contents contents) {
+        this.display = display;
         this.contents = contents;
     }
     
     
-    public void display(Player player) {
-        player.openInventory(inventory);
-    }
+    public abstract void onClick(InventoryClickEvent event);
+    
+    
+    public void onDrag(InventoryDragEvent event) {}
+    
+    public void onClose(InventoryCloseEvent event) {}
     
     
     public void render() {
-        renderData();
-        renderButtons();
+        display.render(contents);
     }
     
+    public void renderButtons() {
+        display.renderButtons(contents);
+    }
     
-    public abstract void renderButtons();
+    public void renderData() {
+        display.renderData(contents);
+    }
     
-    public abstract void renderData();
-    
+    public void display(Player player) {
+        display.display(player);
+    }
     
     public boolean is(Inventory inventory) {
-        return this.inventory == inventory;
+        return display.is(inventory);
     }
     
     

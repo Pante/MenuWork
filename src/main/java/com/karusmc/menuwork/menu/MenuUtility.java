@@ -15,54 +15,51 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.controller;
+package com.karusmc.menuwork.menu;
 
-import com.karusmc.menu.Menu;
+import com.karusmc.menuwork.buttons.Button;
 
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.*;
-
-import static com.karusmc.controller.ControllerUtility.*;
+import org.bukkit.inventory.ItemStack;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class SimpleController implements Controller {
+public class MenuUtility {
     
-    private Menu menu;
-    
-    
-    private SimpleController() {}
-    
-    public SimpleController(Menu menu) {
-        this.menu = menu;
-    }
+    private MenuUtility() {}
     
     
-    @Override
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
+    public static void cancelEvent(InventoryInteractEvent event, Menu menu) {
         if (menu.is(event.getInventory())) {
-            handleButtonClick(event, this);
+            event.setCancelled(true);
         }
     }
     
     
-    @Override
-    @EventHandler
-    public void onDrag(InventoryDragEvent event) {
-        cancelEvent(event, this);
+    public static boolean handleButtonClick(InventoryClickEvent event, Menu menu) {
+        ItemStack item = event.getCurrentItem();
+        boolean isButton = item instanceof Button;
+        
+        if (isButton) {
+            ((Button) item).onClick(event, menu);
+        }
+        
+        return isButton;
     }
-
-    @Override
-    public Menu getMenu() {
-        return menu;
+    
+    public static boolean handleButtonDrag(InventoryDragEvent event, Menu menu) {
+        ItemStack item = event.getCursor();
+        boolean isButton = item instanceof Button;
+        
+        if (isButton) {
+            ((Button) item).onDrag(event, menu);
+        }
+        
+        return isButton;
     }
-
-    @Override
-    public void setMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    
     
 }

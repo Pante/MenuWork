@@ -15,29 +15,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons.mockobjects;
+package com.karusmc.menuwork.plugin;
 
-import com.karusmc.menu.Menu;
-import org.bukkit.inventory.*;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class MockMenu extends Menu<DoubleChestInventory> {
-
-    public MockMenu(DoubleChestInventory inventory) {
-        super(inventory);
-    }
-
+public class MenuWork extends JavaPlugin {
+    
     @Override
-    public void renderButtons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void onEnable() {
+        
     }
-
+    
     @Override
-    public void renderData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void onDisable() {
+        
     }
     
 }

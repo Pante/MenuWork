@@ -15,36 +15,50 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons.reference;
+package com.karusmc.menuwork.display;
 
-import com.karusmc.menu.Menu;
+import com.karusmc.menuwork.buttons.Button;
 
-import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
+import java.util.*;
+
+import org.bukkit.inventory.ItemStack;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class ChoiceMenu extends Menu<Inventory> {
-
-    public ChoiceMenu() {
-        super(Bukkit.createInventory(null, InventoryType.HOPPER));
+public class Contents {
+    
+    private Map<String, Button> buttons;
+    private List<ItemStack> data;
+    
+    
+    public Contents() {
+        buttons = new HashMap<>();
+        data = new ArrayList<>();
     }
     
-    @Override
-    public void renderButtons() {
-        inventory.clear();
-        inventory.setItem(1, contents.getButtons().get("accept"));
-        inventory.setItem(6, contents.getButtons().get("decline"));
-    }
-
-    @Override
-    public void renderData() {
-        inventory.setItem(3, contents.getData().get(0));
+    public Contents(Map<String, Button> buttons, List<ItemStack> data) {
+        this.buttons = buttons;
+        this.data = data;
     }
     
     
+    public Map<String, Button> getButtons() {
+        return buttons;
+    }
+    
+    public void setButtons(Map<String, Button> buttons) {
+        this.buttons = buttons;
+    }
+    
+    
+    public List<ItemStack> getData() {
+        return data;
+    }
+    
+    public void setData(List<ItemStack> data) {
+        this.data = data;
+    }
     
 }

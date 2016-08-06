@@ -15,26 +15,34 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons.mockobjects;
+package com.karusmc.menuwork.reference.display;
 
-import com.karusmc.buttons.Button;
-import com.karusmc.menu.Menu;
-import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import com.karusmc.menuwork.display.*;
+
+import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidButton extends Button {
-    
-    private InvalidButton() {
-        super(Material.AIR);
+public class ChoiceDisplay extends Display<Inventory> {
+
+    public ChoiceDisplay() {
+        super(Bukkit.createInventory(null, InventoryType.HOPPER));
     }
-    
+
     @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void renderButtons(Contents contents) {
+        inventory.setItem(0, contents.getButtons().get("Yes"));
+        inventory.setItem(4, contents.getButtons().get("No"));
     }
+
+    @Override
+    public void renderData(Contents contents) {
+        inventory.setItem(2, contents.getData().get(0));
+    }
+
     
 }

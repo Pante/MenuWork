@@ -15,27 +15,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons.mockobjects;
+package com.karusmc.menuwork.display;
 
-import com.karusmc.buttons.Button;
-import com.karusmc.menu.Menu;
-
-import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * @param <Interface>
  */
-public class NormalButton extends Button {
-
-    public NormalButton() {
-        super(Material.ANVIL);
+public abstract class Display<Interface extends Inventory> {
+    
+    protected Interface inventory;
+    
+    private Display() {}
+    
+    public Display(Interface inventory) {
+        this.inventory = inventory;
     }
-
-    @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    
+    public void render(Contents contents) {
+        renderData(contents);
+        renderButtons(contents);
+    }
+    
+    
+    public abstract void renderButtons(Contents contents);
+    
+    public abstract void renderData(Contents contents);
+    
+    
+    public void display(Player player) {
+        player.openInventory(inventory);
+    }
+    
+    public boolean is(Interface inventory) {
+        return this.inventory == inventory;
     }
     
 }
