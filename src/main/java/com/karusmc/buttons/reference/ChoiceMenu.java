@@ -15,33 +15,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.buttons.reference;
 
-import com.karusmc.buttons.mockobjects.InvalidButton;
-import org.junit.*;
+import com.karusmc.menu.Menu;
 
-import static org.junit.Assert.*;
+import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidButtonHandlerTest {
+public class ChoiceMenu extends Menu<Inventory> {
+
+    public ChoiceMenu() {
+        super(Bukkit.createInventory(null, InventoryType.HOPPER));
+    }
     
-    private InvalidButtonHandler handler;
-    
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void createNewInstance_ThrowsException() {
-        handler = new InvalidButtonHandler(InvalidButton.class);
-        handler.createNewInstance();
+    @Override
+    public void renderButtons() {
+        inventory.clear();
+        inventory.setItem(1, contents.getButtons().get("accept"));
+        inventory.setItem(6, contents.getButtons().get("decline"));
+    }
+
+    @Override
+    public void renderData() {
+        inventory.setItem(3, contents.getData().get(0));
     }
     
     
-    @Test
-    public void createNewInstance_ReturnsButton() {
-        handler = new InvalidButtonHandler();
-        assertEquals(DefaultButton.class, handler.createNewInstance().getClass());
-    }
     
 }

@@ -15,11 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.controller;
 
-import com.karusmc.controller.Controller;
+import com.karusmc.buttons.Button;
 
-import org.bukkit.Material;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,34 +26,26 @@ import org.bukkit.inventory.ItemStack;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class ControllerUtility {
     
-    private Button() {}
+    private ControllerUtility() {}
     
-    public Button(ItemStack itemstack) {
-        super(itemstack);
+    
+    public static void cancelEvent(InventoryInteractEvent event, Controller controller) {
+        if (controller.getMenu().is(event.getInventory())) {
+            event.setCancelled(true);
+        }
     }
     
-    public Button(Material type) {
-        super(type);
-    }
- 
-    
-    public Button amount(int amount) {
-        setAmount(amount);
-        return this;
-    }
-    
-    public Button durability(short durability) {
-        setDurability(durability);
-        return this;
-    }
-    
-    
-    public abstract void onClick(InventoryClickEvent event, Controller controller);
-    
-    public void onDrag(InventoryDragEvent event, Controller controller) {
-        event.setCancelled(true);
+    public static boolean handleButtonClick(InventoryClickEvent event, Controller controller) {
+        ItemStack item = event.getCurrentItem();
+        boolean isButton = item instanceof Button;
+        
+        if (isButton) {
+            ((Button) item).onClick(event, controller);
+        }
+        
+        return isButton;
     }
     
 }

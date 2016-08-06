@@ -18,6 +18,7 @@
 package com.karusmc.menu;
 
 
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 /**
@@ -41,6 +42,11 @@ public abstract class Menu<Display extends Inventory> {
     public Menu(Display inventory, Contents contents) {
         this.inventory = inventory;
         this.contents = contents;
+    }
+    
+    
+    public void display(Player player) {
+        player.openInventory(inventory);
     }
     
     

@@ -15,33 +15,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.controller;
+
+import com.karusmc.menu.Menu;
+
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidButtonHandler {
+public interface Controller extends Listener {
     
-    private Class<? extends Button> defaultButton;
-    
-    
-    public InvalidButtonHandler() {
-        this.defaultButton = DefaultButton.class;
-    }
-    
-    public InvalidButtonHandler(Class<? extends Button> defaultButton) {
-        this.defaultButton = defaultButton;
-    }
+    public void onClick(InventoryClickEvent event);
     
     
-    public Button createNewInstance() {
-        try {
-            return defaultButton.getConstructor().newInstance();
-            
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
+    public default void onDrag(InventoryDragEvent event) {}
+    
+    public default void onClose(InventoryCloseEvent event) {}
+    
+    
+    public Menu getMenu();
+    
+    public void setMenu();
     
 }

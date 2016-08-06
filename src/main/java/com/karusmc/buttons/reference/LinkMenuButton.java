@@ -15,46 +15,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.buttons.reference;
 
+import com.karusmc.buttons.Button;
 import com.karusmc.controller.Controller;
 
 import org.bukkit.Material;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class LinkMenuButton extends Button {
     
-    private Button() {}
+    private Controller controller;
     
-    public Button(ItemStack itemstack) {
-        super(itemstack);
+    public LinkMenuButton(Controller controller) {
+        super(Material.STONE);
+        this.controller = controller;
     }
     
-    public Button(Material type) {
-        super(type);
-    }
- 
-    
-    public Button amount(int amount) {
-        setAmount(amount);
-        return this;
-    }
-    
-    public Button durability(short durability) {
-        setDurability(durability);
-        return this;
-    }
-    
-    
-    public abstract void onClick(InventoryClickEvent event, Controller controller);
-    
-    public void onDrag(InventoryDragEvent event, Controller controller) {
-        event.setCancelled(true);
+    @Override
+    public void onClick(InventoryClickEvent event, Controller controller) {
+        HandlerList.unregisterAll(controller);
+        this.controller.getMenu().display((Player) event.getWhoClicked());
     }
     
 }

@@ -15,46 +15,54 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.buttons;
+package com.karusmc.controller;
 
-import com.karusmc.controller.Controller;
+import com.karusmc.menu.Menu;
 
-import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
+
+import static com.karusmc.controller.ControllerUtility.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class SimpleController implements Controller {
     
-    private Button() {}
+    private Menu menu;
     
-    public Button(ItemStack itemstack) {
-        super(itemstack);
-    }
     
-    public Button(Material type) {
-        super(type);
-    }
- 
+    private SimpleController() {}
     
-    public Button amount(int amount) {
-        setAmount(amount);
-        return this;
-    }
-    
-    public Button durability(short durability) {
-        setDurability(durability);
-        return this;
+    public SimpleController(Menu menu) {
+        this.menu = menu;
     }
     
     
-    public abstract void onClick(InventoryClickEvent event, Controller controller);
+    @Override
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        if (menu.is(event.getInventory())) {
+            handleButtonClick(event, this);
+        }
+    }
     
-    public void onDrag(InventoryDragEvent event, Controller controller) {
-        event.setCancelled(true);
+    
+    @Override
+    @EventHandler
+    public void onDrag(InventoryDragEvent event) {
+        cancelEvent(event, this);
+    }
+
+    @Override
+    public Menu getMenu() {
+        return menu;
+    }
+
+    @Override
+    public void setMenu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

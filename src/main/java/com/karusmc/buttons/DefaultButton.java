@@ -17,7 +17,7 @@
  */
 package com.karusmc.buttons;
 
-import com.karusmc.menu.Menu;
+import com.karusmc.controller.Controller;
 
 import org.bukkit.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -34,7 +34,7 @@ public class DefaultButton extends Button {
     }
 
     @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
+    public void onClick(InventoryClickEvent event, Controller contoller) {
         event.getWhoClicked().sendMessage(ChatColor.RED + "You should not be seeing this. Please contact the server administration.");
     }
     
