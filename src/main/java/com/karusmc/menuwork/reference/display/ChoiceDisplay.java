@@ -28,15 +28,20 @@ import org.bukkit.inventory.Inventory;
  * @author PanteLegacy @ karusmc.com
  */
 public class ChoiceDisplay extends Display<Inventory> {
-
-    public ChoiceDisplay() {
-        super(Bukkit.createInventory(null, InventoryType.HOPPER));
+    
+    public ChoiceDisplay(String title) {
+        super(Bukkit.createInventory(null, InventoryType.HOPPER, title));
+    }
+    
+    protected ChoiceDisplay(Inventory inventory) {
+        super(inventory);
     }
 
+    
     @Override
     public void renderButtons(Contents contents) {
-        inventory.setItem(0, contents.getButtons().get("Yes"));
-        inventory.setItem(4, contents.getButtons().get("No"));
+        inventory.setItem(0, contents.getButtons().get("Accept"));
+        inventory.setItem(4, contents.getButtons().get("Decline"));
     }
 
     @Override

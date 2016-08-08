@@ -20,7 +20,7 @@ package com.karusmc.menuwork.reference.buttons;
 import com.karusmc.menuwork.buttons.Button;
 import com.karusmc.menuwork.menu.Menu;
 
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -28,28 +28,20 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class LinkingMenuButton extends Button {
+public class TeleportButton extends Button {
     
-    private Menu menu;
-    
-    public LinkingMenuButton(Material type, Menu menu) {
-        super(type);
-        this.menu = menu;
-    }
+    private Location location;
 
+    public TeleportButton(Material type, Location location) {
+        super(type);
+        this.location = location;
+    }
+    
+    
     @Override
     public void onClick(InventoryClickEvent event, Menu menu) {
         event.setCancelled(true);
-        this.menu.display((Player) event.getWhoClicked());
-    }
-    
-    
-    public Menu getMenu() {
-        return menu;
-    }
-    
-    public void setMenu() {
-        this.menu = menu;
+        ((Player) event.getWhoClicked()).teleport(location);
     }
     
 }

@@ -15,41 +15,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.reference.buttons;
+package com.karusmc.menuwork.reference.display;
 
-import com.karusmc.menuwork.buttons.Button;
-import com.karusmc.menuwork.menu.Menu;
+import com.karusmc.menuwork.display.*;
+import org.bukkit.Bukkit;
 
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class LinkingMenuButton extends Button {
+public class PagedDisplay extends Display<Inventory> {
+
+    public PagedDisplay(int size, String title) {
+        super(Bukkit.createInventory(null, size, title));
+    }
     
-    private Menu menu;
+    protected PagedDisplay(Inventory inventory) {
+        super(inventory);
+    }
     
-    public LinkingMenuButton(Material type, Menu menu) {
-        super(type);
-        this.menu = menu;
+
+    @Override
+    public void renderButtons(Contents contents) {
+        
     }
 
     @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.setCancelled(true);
-        this.menu.display((Player) event.getWhoClicked());
-    }
-    
-    
-    public Menu getMenu() {
-        return menu;
-    }
-    
-    public void setMenu() {
-        this.menu = menu;
+    public void renderData(Contents contents) {
+        
+        
     }
     
 }
