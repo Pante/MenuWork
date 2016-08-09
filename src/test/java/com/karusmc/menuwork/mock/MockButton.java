@@ -15,42 +15,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.reference.buttons;
+package com.karusmc.menuwork.mock;
 
 import com.karusmc.menuwork.buttons.Button;
 import com.karusmc.menuwork.menu.Menu;
 
-import org.bukkit.*;
-import org.bukkit.entity.Player;
+import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class TeleportButton extends Button {
-    
-    private Location location;
+public class MockButton extends Button {
 
-    public TeleportButton(Material type, Location location) {
-        super(type);
-        this.location = location;
+    public MockButton() {
+        super(Material.STONE);
     }
-    
-    
+
     @Override
     public void onClick(InventoryClickEvent event, Menu menu) {
-        event.setCancelled(true);
-        ((Player) event.getWhoClicked()).teleport(location);
-    }
-    
-    
-    public Location getLocation() {
-        return location;
-    }
-    
-    public void setLocation(Location location) {
-        this.location = location;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

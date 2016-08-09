@@ -15,42 +15,31 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.reference.buttons;
+package com.karusmc.menuwork.plugin;
 
-import com.karusmc.menuwork.buttons.Button;
-import com.karusmc.menuwork.menu.Menu;
+import com.karusmc.menuwork.display.*;
+import org.bukkit.Bukkit;
 
-import org.bukkit.*;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class TeleportButton extends Button {
+public class AboutDisplay extends Display<Inventory> {
     
-    private Location location;
-
-    public TeleportButton(Material type, Location location) {
-        super(type);
-        this.location = location;
+    public AboutDisplay(String title) {
+        super(Bukkit.createInventory(null, 54, title));
     }
     
+    protected AboutDisplay(Inventory inventory) {
+        super(inventory);
+    }
+
     
     @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.setCancelled(true);
-        ((Player) event.getWhoClicked()).teleport(location);
-    }
-    
-    
-    public Location getLocation() {
-        return location;
-    }
-    
-    public void setLocation(Location location) {
-        this.location = location;
+    public void renderButtons(Contents contents) {
+        inventory.setItem(4, contents.getButtons().get("About"));
     }
     
 }

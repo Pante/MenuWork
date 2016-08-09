@@ -15,42 +15,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.reference.buttons;
-
-import com.karusmc.menuwork.buttons.Button;
-import com.karusmc.menuwork.menu.Menu;
-
-import org.bukkit.*;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
+package com.karusmc.menuwork.display;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class TeleportButton extends Button {
+public class PageUtility {
     
-    private Location location;
-
-    public TeleportButton(Material type, Location location) {
-        super(type);
-        this.location = location;
+    private PageUtility() {}
+    
+    
+    public static int calculatePageSize(int total, int numberOfPages) {
+        
+        double rawNumberOfSlots = (double) total / numberOfPages;
+        int roundedNumberOfSlots = (int) (Math.ceil(rawNumberOfSlots / 9.0) * 9.0);
+        
+        return Math.min(roundedNumberOfSlots, 54);
+    }
+    
+    public static int calculateTotalPages(int total, int renderSpace) {
+        return (int) Math.ceil((double) total / renderSpace);
     }
     
     
-    @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.setCancelled(true);
-        ((Player) event.getWhoClicked()).teleport(location);
+    public static int getFirstItemOnPageIndex(int page, int renderSize) {
+        return (page * renderSize) - renderSize;
     }
     
-    
-    public Location getLocation() {
-        return location;
-    }
-    
-    public void setLocation(Location location) {
-        this.location = location;
+    public static int getLastItemOnPageIndex(int total, int page, int renderSize) {
+        return Math.min(total, page * renderSize);   
     }
     
 }

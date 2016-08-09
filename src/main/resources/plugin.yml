@@ -1,0 +1,13 @@
+name: MenuWork
+main: com.karusmc.menuwork.plugin.MenuWork
+version: 1.0.0
+description: MenuWork lib
+website: https://github.com/Pante/MenuWork
+author: PanteLegacy, Danny
+commands:
+
+  menuwork:
+    aliases: [menuwork, mwork, menuw, mw]
+    description: Base menuwork command
+    usage: /menuwork
+    permission: menuwork.main

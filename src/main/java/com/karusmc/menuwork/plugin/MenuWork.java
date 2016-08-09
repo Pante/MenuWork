@@ -17,22 +17,44 @@
  */
 package com.karusmc.menuwork.plugin;
 
+import com.karusmc.menuwork.menu.*;
+
+import org.bukkit.*;
+import org.bukkit.command.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class MenuWork extends JavaPlugin {
+public class MenuWork extends JavaPlugin implements TabExecutor{
+    
+    private Menu aboutMenu;
     
     @Override
     public void onEnable() {
+        aboutMenu = new SimpleMenu(new AboutDisplay("About MenuWork"));
+        aboutMenu.getContents().getButtons().put("About", new AboutButton(Material.ANVIL, getDescription()));
         
+        Bukkit.getPluginManager().registerEvents(aboutMenu, this);
+        getCommand("MenuWork").setExecutor(this);
     }
     
     @Override
     public void onDisable() {
+        HandlerList.unregisterAll(aboutMenu);
+    }
+    
+    
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (sender instanceof Player) {
+            aboutMenu.display((Player) sender);
+        }
         
+        return true;
     }
     
 }

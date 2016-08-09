@@ -42,16 +42,16 @@ public abstract class Display<Interface extends Inventory> {
     }
     
     
-    public abstract void renderButtons(Contents contents);
+    public void renderButtons(Contents contents) {}
     
-    public abstract void renderData(Contents contents);
+    public void renderData(Contents contents) {}
     
     
     public void display(Player player) {
         player.openInventory(inventory);
     }
     
-    public boolean is(Interface inventory) {
+    public boolean is(Inventory inventory) {
         return this.inventory == inventory;
     }
     

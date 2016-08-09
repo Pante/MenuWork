@@ -18,9 +18,10 @@
 package com.karusmc.menuwork.reference.display;
 
 import com.karusmc.menuwork.display.*;
-import org.bukkit.Bukkit;
 
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 /**
  *
@@ -39,13 +40,24 @@ public class PagedDisplay extends Display<Inventory> {
 
     @Override
     public void renderButtons(Contents contents) {
+        int lastRow = inventory.getSize() - 10;
         
+        inventory.setItem(lastRow, contents.getButtons().get("Back"));
+        inventory.setItem(inventory.getSize() - 1, contents.getButtons().get("Next"));
     }
 
     @Override
     public void renderData(Contents contents) {
+        int renderSpace = inventory.getSize() - 10;
+        int i = 0;
         
-        
+        for(ItemStack item : contents.getData()) {
+            if (i >= renderSpace) {
+                break;
+            }
+            
+            inventory.setItem(i, item);
+        }
     }
     
 }

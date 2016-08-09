@@ -48,7 +48,7 @@ public class LinkingMenuButton extends Button {
         return menu;
     }
     
-    public void setMenu() {
+    public void setMenu(Menu menu) {
         this.menu = menu;
     }
     

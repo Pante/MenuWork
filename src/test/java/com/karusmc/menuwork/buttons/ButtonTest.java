@@ -15,42 +15,48 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.reference.buttons;
+package com.karusmc.menuwork.buttons;
 
-import com.karusmc.menuwork.buttons.Button;
-import com.karusmc.menuwork.menu.Menu;
+import com.karusmc.menuwork.mock.MockButton;
 
-import org.bukkit.*;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.*;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class TeleportButton extends Button {
+public class ButtonTest {
     
-    private Location location;
-
-    public TeleportButton(Material type, Location location) {
-        super(type);
-        this.location = location;
+    private Button button;
+    private InventoryDragEvent event;
+    
+    public ButtonTest() {
+        button = new MockButton();
+        event = mock(InventoryDragEvent.class);
+    }
+    
+    @Test
+    public void testAmount_SetsAmount() {
+        button.amount(100);
+        assertEquals(100, button.getAmount());
+    }
+    
+    @Test
+    public void testDurability_SetsDurability() {
+        button.durability((short) 8);
+        assertEquals(8, button.getDurability());
     }
     
     
-    @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.setCancelled(true);
-        ((Player) event.getWhoClicked()).teleport(location);
-    }
-    
-    
-    public Location getLocation() {
-        return location;
-    }
-    
-    public void setLocation(Location location) {
-        this.location = location;
+    @Test
+    public void onDrag_callsCancel() {
+        button.onDrag(event, null);
+        verify(event, times(1)).setCancelled(true);
     }
     
 }

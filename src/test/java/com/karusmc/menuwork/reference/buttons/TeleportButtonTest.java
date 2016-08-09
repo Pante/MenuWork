@@ -17,40 +17,42 @@
  */
 package com.karusmc.menuwork.reference.buttons;
 
-import com.karusmc.menuwork.buttons.Button;
-import com.karusmc.menuwork.menu.Menu;
-
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+
+import org.junit.Test;
+
+import static org.mockito.Mockito.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class TeleportButton extends Button {
+public class TeleportButtonTest {
     
+    private TeleportButton button;
     private Location location;
-
-    public TeleportButton(Material type, Location location) {
-        super(type);
-        this.location = location;
+    private InventoryClickEvent event;
+    private Player player;
+    
+    
+    public TeleportButtonTest() {
+        location = mock(Location.class);
+        button = new TeleportButton(Material.THIN_GLASS, location);
+        
+        event = mock(InventoryClickEvent.class);
+        player = mock(Player.class);
     }
     
     
-    @Override
-    public void onClick(InventoryClickEvent event, Menu menu) {
-        event.setCancelled(true);
-        ((Player) event.getWhoClicked()).teleport(location);
-    }
-    
-    
-    public Location getLocation() {
-        return location;
-    }
-    
-    public void setLocation(Location location) {
-        this.location = location;
+    @Test
+    public void onClick_TeleportsPlayer() {
+        when(event.getWhoClicked()).thenReturn(player);
+        button.onClick(event, null);
+        
+        verify(player, times(1)).teleport(location);
     }
     
 }
