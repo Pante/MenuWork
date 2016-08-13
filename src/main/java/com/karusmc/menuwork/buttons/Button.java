@@ -21,19 +21,19 @@ import com.karusmc.menuwork.menu.Menu;
 
 import org.bukkit.Material;
 import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.*;
+import org.bukkit.inventory.ItemStack;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
 public abstract class Button extends ItemStack {
-    
+
     private Button() {}
     
     public Button(ItemStack item) {
         super(item);
-    }
+}
     
     public Button(Material type) {
         super(type);
@@ -42,18 +42,7 @@ public abstract class Button extends ItemStack {
     public Button(Material type, int amount, short durability) {
         super(type, amount, durability);
     }
-    
-    
-    public Button amount(int amount) {
-        setAmount(amount);
-        return this;
-    }
-    
-    public Button durability(short durability) {
-        setDurability(durability);
-        return this;
-    }
-    
+  
     
     public abstract void onClick(InventoryClickEvent event, Menu menu);
     
