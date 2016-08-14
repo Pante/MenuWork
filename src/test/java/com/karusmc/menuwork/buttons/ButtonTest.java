@@ -17,37 +17,33 @@
  */
 package com.karusmc.menuwork.buttons;
 
+import org.bukkit.event.inventory.InventoryDragEvent;
 
-import org.bukkit.Material;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
-import com.karusmc.menuwork.menu.Menu;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import static org.mockito.Mockito.*;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
-
-    protected Button() {}
+public class ButtonTest {
     
-    public Button(ItemStack item) {
-        super(item);
+    private Button button;
+    private InventoryDragEvent event;
+    
+    public ButtonTest() {
+        event = mock(InventoryDragEvent.class);
+        button = mock(Button.class, Mockito.CALLS_REAL_METHODS);
     }
     
-    public Button(Material type) {
-        super(type);
-    }
     
-    public Button(Material type, int amount, short durability) {
-        super(type, amount, durability);
-    }
-  
-    
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
-    
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
+    @Test
+    public void onDrag_cancelsEvent() {
+        button.onDrag(event, null);
+        
+        verify(event, times(1)).setCancelled(true);
     }
     
 }

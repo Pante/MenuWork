@@ -15,39 +15,42 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.buttons;
+package com.karusmc.menuwork.menu;
 
+import com.karusmc.menuwork.display.*;
 
-import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
-import com.karusmc.menuwork.menu.Menu;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
-
-    protected Button() {}
+public interface Menu extends Listener {
     
-    public Button(ItemStack item) {
-        super(item);
-    }
+    public void onClick(InventoryClickEvent event);
     
-    public Button(Material type) {
-        super(type);
-    }
     
-    public Button(Material type, int amount, short durability) {
-        super(type, amount, durability);
-    }
-  
+    public default void onDrag(InventoryDragEvent event) {}
     
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
+    public default void onClose(InventoryCloseEvent event) {}
     
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
-    }
+    
+    public Display getDisplay();
+    
+    public void setDisplay(Display display);
+    
+    
+    public Contents getContents();
+    
+    
+    public void render();
+    
+    public void renderData();
+    
+    public void renderButtons();
+    
+    public void display(Player player);
     
 }

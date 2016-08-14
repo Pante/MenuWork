@@ -15,39 +15,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.buttons;
-
-
-import org.bukkit.Material;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
-import com.karusmc.menuwork.menu.Menu;
+package com.karusmc.menuwork.display;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
-
-    protected Button() {}
+public class PageUtility {
     
-    public Button(ItemStack item) {
-        super(item);
+    private PageUtility() {}
+    
+    
+    public static int calculatePageSize(int total, int numberOfPages) {
+        
+        double rawNumberOfSlots = (double) total / numberOfPages;
+        int roundedNumberOfSlots = (int) (Math.ceil(rawNumberOfSlots / 9.0) * 9.0);
+        
+        return Math.min(roundedNumberOfSlots, 54);
     }
     
-    public Button(Material type) {
-        super(type);
+    public static int calculateTotalPages(int total, int renderSpace) {
+        return (int) Math.ceil((double) total / renderSpace);
     }
     
-    public Button(Material type, int amount, short durability) {
-        super(type, amount, durability);
+    
+    public static int getFirstItemOnPageIndex(int page, int renderSize) {
+        return (page * renderSize) - renderSize;
     }
-  
     
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
-    
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
+    public static int getLastItemOnPageIndex(int total, int page, int renderSize) {
+        return Math.min(total, page * renderSize);   
     }
     
 }

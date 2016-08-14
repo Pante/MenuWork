@@ -15,39 +15,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.buttons;
+package com.karusmc.menuwork.menu;
 
+import com.karusmc.menuwork.buttons.Button;
+import com.karusmc.menuwork.plugin.MenuWork;
 
-import org.bukkit.Material;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.ItemStack;
-import com.karusmc.menuwork.menu.Menu;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class MenuUtility {
+    
+    private MenuUtility() {}
+    
+    
+    public static void cancelEvent(InventoryInteractEvent event, Menu menu) {
+        if (menu.getDisplay().is(event.getInventory())) {
+            event.setCancelled(true);
+        }
+    }
+    
+    
+    public static boolean handleButtonClick(InventoryClickEvent event, Menu menu) {
+        ItemStack item = menu.getDisplay().getItemAt(event.getSlot());
+        boolean isButton = item instanceof Button;
 
-    protected Button() {}
-    
-    public Button(ItemStack item) {
-        super(item);
-    }
-    
-    public Button(Material type) {
-        super(type);
-    }
-    
-    public Button(Material type, int amount, short durability) {
-        super(type, amount, durability);
-    }
-  
-    
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
-    
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
+        if (isButton) {
+            ((Button) item).onClick(event, menu);
+        }
+        
+        return isButton;
     }
     
 }

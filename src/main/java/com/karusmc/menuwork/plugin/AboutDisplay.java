@@ -15,39 +15,31 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.karusmc.menuwork.buttons;
+package com.karusmc.menuwork.plugin;
 
+import com.karusmc.menuwork.display.*;
 
-import org.bukkit.Material;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.ItemStack;
-import com.karusmc.menuwork.menu.Menu;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Button extends ItemStack {
+public class AboutDisplay extends Display<Inventory> {
+    
+    public AboutDisplay(String title) {
+        super(Bukkit.createInventory(null, 54, title));
+    }
+    
+    protected AboutDisplay(Inventory inventory) {
+        super(inventory);
+    }
 
-    protected Button() {}
     
-    public Button(ItemStack item) {
-        super(item);
-    }
-    
-    public Button(Material type) {
-        super(type);
-    }
-    
-    public Button(Material type, int amount, short durability) {
-        super(type, amount, durability);
-    }
-  
-    
-    public abstract void onClick(InventoryClickEvent event, Menu menu);
-    
-    public void onDrag(InventoryDragEvent event, Menu menu) {
-        event.setCancelled(true);
+    @Override
+    public void renderButtons() {
+        gui.setItem(4, contents.getButtons().get("About"));
     }
     
 }
